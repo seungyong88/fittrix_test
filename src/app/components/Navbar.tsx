@@ -12,7 +12,12 @@ import NewIcon from "../icons/NewIcon";
 import NewFillIcon from "../icons/NewFillIcon";
 import { usePathname } from "next/navigation";
 import ColorButton from "./ui/ColorButton";
-import { useSession, signIn, signOut, SessionContextValue } from "next-auth/react";
+import {
+  useSession,
+  signIn,
+  signOut,
+  SessionContextValue,
+} from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ModalPortal from "./ui/ModalPortal";
 import DefaultModal from "./DefaultModal";
@@ -20,8 +25,6 @@ import UserRuleSelect from "./UserRuleSelect";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { controlModal } from "@/features/modal/modalSlice";
 import { Session } from "next-auth";
-import { Interface } from "readline";
-import { imageBuilder } from "@/service/sanity";
 import Avatar from "./ui/Avatar";
 
 const menu = [
@@ -42,10 +45,15 @@ const menu = [
   },
 ];
 
+
 function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
-  const { data: session, status, update } : { data: Session | null, status: string, update: Function } = useSession();
+  const {
+    data: session,
+    status,
+    update,
+  }: { data: Session | null; status: string; update: Function } = useSession();
   const user = session?.user;
   const dispatch = useAppDispatch();
   const { userRoleModal } = useAppSelector((state) => state.modal);
@@ -79,15 +87,17 @@ function Navbar() {
   }, [pathName, status, session]);
 
   return (
-    <div
-      className={`${
-        pathName === "/auth/signin" ? "hidden" : "flex"
-      } justify-between items-center px-6 h-[70px]`}
-    >
-      <Link href="/">
-        <Image src={Logo} alt="Logo" width={100} height={50} priority />
-      </Link>
-      <nav>
+    <>
+      <nav
+        className={`${
+          pathName === "/auth/signin" ? "hidden" : "flex"
+        } justify-between items-center px-6 h-[70px]`}
+      >
+        <div>
+          <Link href="/">
+            <Image src={Logo} alt="Logo" width={100} height={50} priority />
+          </Link>
+        </div>
         <ul className="flex gap-4 items-center p-4">
           {menu.map((item) => (
             <li key={item.href}>
@@ -125,7 +135,7 @@ function Navbar() {
           </DefaultModal>
         </ModalPortal>
       )}
-    </div>
+    </>
   );
 }
 
