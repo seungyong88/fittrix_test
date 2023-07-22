@@ -1,7 +1,11 @@
+// import 
+
+import ListContainer from "./components/ListContainer";
+
 export default async function HomePage() {
   return (
     <section>
-      <h1>Home Page</h1>
+      <ListContainer />
     </section>
   )
 }

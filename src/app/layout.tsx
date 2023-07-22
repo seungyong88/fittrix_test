@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
 import ReduxProvider from "./ReduxProvider";
+import SWRConfigContext from "@/context/SWRConfigContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -21,13 +22,15 @@ export default function RootLayout({ children }: Props) {
     <html lang="en" className={openSans.className}>
       <body className="w-full max-w-screen-md bg-red-100 overflow-auto mx-auto">
         <AuthContext>
+        <SWRConfigContext>
           <ReduxProvider>
             <header className="sticky top-0 bg-red-100 z-10 border-b">
               <Navbar />
             </header>
-            <main>{children}</main>
+              <main>{children}</main>
             <div id="portal"></div>
           </ReduxProvider>
+            </SWRConfigContext>
         </AuthContext>
       </body>
     </html>

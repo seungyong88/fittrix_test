@@ -82,7 +82,7 @@ function Navbar() {
     <div
       className={`${
         pathName === "/auth/signin" ? "hidden" : "flex"
-      } justify-between items-center px-6`}
+      } justify-between items-center px-6 h-[70px]`}
     >
       <Link href="/">
         <Image src={Logo} alt="Logo" width={100} height={50} priority />
