@@ -5,7 +5,7 @@ export async function getPostsOf(username: string, exercise: string) {
   const exerciseQuery = exercise == 'all' ? '' : `&& exercise == '${exercise}'`;
   return await client
     .fetch(
-      `*[_type == "post" && author._ref == '${username}' ${exerciseQuery}]{
+      `*[_type == "post" ${exerciseQuery}] | order(_updatedAt desc){
       ...,
       "commentsCount": count(comments),
       author-> {
