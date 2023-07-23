@@ -1,6 +1,5 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getPostsOf } from "@/service/posts";
-import { getUserByUsername } from "@/service/user";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";

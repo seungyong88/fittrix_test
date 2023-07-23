@@ -8,7 +8,8 @@ import BenchIcon from "../icons/BenchIcon";
 import SquatIcon from "../icons/SquatIcon";
 import ETCIcon from "../icons/ETCIcon";
 import LungeIcon from "../icons/LungeIcon";
-import CommentIcon from "../icons/CommentIcon";
+import CommentForm from "./CommentForm";
+import usePosts from "@/hooks/posts";
 
 type Props = {
   post: FullPost;
@@ -30,6 +31,12 @@ const getIcon = (exercise: string) => {
 };
 
 function PostsListCard({ post }: Props) {
+  const { postComment } = usePosts();
+
+  const handlePostComment = (comment: string) => {
+    postComment(post, comment);
+  };
+
   return (
     <article className="rounded-lg shadow-md border-gray-200 my-6">
       <div className="p-2 flex justify-between items-center">
@@ -48,6 +55,7 @@ function PostsListCard({ post }: Props) {
           {
             post.images.map((image) => (
               <img 
+                key={image.url}
                 className="w-full object-cover aspect-square"
                 src={image.url} 
                 alt={post.comment} 
@@ -60,19 +68,18 @@ function PostsListCard({ post }: Props) {
       </div>
        
         {/* <p className="text-gray-900 font-bold p-4">{post.exercise}</p> */}
-      <div className="flex items-center pl-3">
-        {getIcon(post.exercise)}
-        <p className="text-gray-900 font-bold p-2">{post.comment}</p>
+      <div className="flex flex-col items-start justify-center pl-3">
+        <div className="flex items-center">
+          {getIcon(post.exercise)}
+          <p className="text-gray-900 font-bold p-2">{post.comment}</p>
+        </div>
+        {post?.commentsCount >= 1 && (
+          <button className="font-bold my-2 text-sky-500 text-xs">
+            View all {post.commentsCount} comments
+          </button>
+        )}
       </div>
-      <form className="flex border-t border-neutral-300 p-3">
-        <CommentIcon />
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          className="w-full px-3 py-1 outline-none bg-red-100 text-xs"
-        />
-        <button className="text-blue-500 font-bold">Post</button>
-      </form>
+      <CommentForm onPostComment={handlePostComment} />
     </article>
   );
 }

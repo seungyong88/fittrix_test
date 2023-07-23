@@ -7,6 +7,7 @@ export async function getPostsOf(username: string, exercise: string) {
     .fetch(
       `*[_type == "post" && author._ref == '${username}' ${exerciseQuery}]{
       ...,
+      "commentsCount": count(comments),
       author-> {
         username,
         name,
@@ -16,6 +17,7 @@ export async function getPostsOf(username: string, exercise: string) {
     )
     .then((posts) => {
       return posts.map((post: FullPost) => {
+        console.log(posts);
         return {
           ...post,
           author: {
@@ -75,4 +77,19 @@ export async function createPost(userId: string, text: string, exercise: string,
   } catch (err) {
     console.log(err);
   }
+}
+
+
+export async function addComment(postId: string, userId: string, comment: string) {
+  return client
+  .patch(postId)
+  .setIfMissing({ comments: [] })
+  .append('comments', [
+    {
+      comment: comment,
+      author: { _ref: userId, _type: 'reference'}
+    }
+  ])
+  .commit({ autoGenerateArrayKeys : true })
+  
 }

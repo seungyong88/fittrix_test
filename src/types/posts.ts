@@ -16,7 +16,16 @@ type Image = {
   _key: string;
 } 
 
+export type Comment = {
+  author: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type FullPost = {
+  comments: Comment[];
+  commentsCount: number;
   exercise: string;
   _id: string;
   _type: string;

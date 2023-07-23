@@ -23,8 +23,4 @@ export async function GET(req: NextRequest) {
   const res = await setRole(user, role);
   console.log(res);
   return NextResponse.json(res)
-  // .then((data) =>{
-  //   console.log("aslikdjlaskjdas", data)
-  //   return NextResponse.json(data)
-  // } 
 }
