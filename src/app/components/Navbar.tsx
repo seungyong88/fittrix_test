@@ -33,11 +33,11 @@ const menu = [
     icon: <HomeIcon />,
     clickedIcon: <HomeFillIcon />,
   },
-  {
-    href: "/search",
-    icon: <SearchIcon />,
-    clickedIcon: <SearchFillIcon />,
-  },
+  // {
+  //   href: "/search",
+  //   icon: <SearchIcon />,
+  //   clickedIcon: <SearchFillIcon />,
+  // },
   {
     href: "/new",
     icon: <NewIcon />,

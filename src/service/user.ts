@@ -9,7 +9,7 @@ export async function addUser(user: User) {
   return client.createIfNotExists({
     _id: user.username,
     _type: "user",
-    userType: "",
+    userType: "user",
     id: user.username, // interface authorize
     username: user.username,
     password: user.password,

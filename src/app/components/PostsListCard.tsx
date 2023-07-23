@@ -70,17 +70,19 @@ function PostsListCard({ post }: Props) {
             {post.author.username}
           </span>
         </div>
-        <span className="text-xs text-neutral-500 uppercase my-2">
-          {parseDate(post._updatedAt)}
-        </span>
-        {session?.user.userType === "admin" && (
-          <button
-            className="text-xs text-white bg-red-900 p-2 uppercase"
-            onClick={() => handleDelete(post._id)}
-          >
-            Delete
-          </button>
-        )}
+        <div>
+          <span className="text-xs text-neutral-500 uppercase my-2">
+            {parseDate(post._updatedAt)}
+          </span>
+          {session?.user.userType === "admin" && (
+            <button
+              className="text-xs text-white bg-red-900 p-2 uppercase ml-3 rounded-md"
+              onClick={() => handleDelete(post._id)}
+            >
+              Delete
+            </button>
+          )}
+        </div>
       </div>
       <div className="w-full" onClick={() => setOpenModal(true)}>
         <ScrollableImageSlider>
