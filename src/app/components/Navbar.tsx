@@ -55,7 +55,6 @@ function Navbar() {
     update,
   }: { data: Session | null; status: string; update: Function } = useSession();
   const user = session?.user;
-  console.log("user", user)
   const dispatch = useAppDispatch();
   const { userRoleModal } = useAppSelector((state) => state.modal);
 

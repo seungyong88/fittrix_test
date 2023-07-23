@@ -5,7 +5,6 @@ import { setRole } from "@/service/user";
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
-  console.log("ssdasdsad", session);
   const url = req.nextUrl.clone();
   const user = session?.user;
   
@@ -14,13 +13,11 @@ export async function GET(req: NextRequest) {
   }
 
   const role = req.nextUrl.searchParams.get("role");
-  console.log("check role", role);
 
   if(!role) {
     return NextResponse.json(url)
   }
 
   const res = await setRole(user, role);
-  console.log(res);
   return NextResponse.json(res)
 }

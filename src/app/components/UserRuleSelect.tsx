@@ -11,7 +11,6 @@ function UserRuleSelect({ user, update, onControlModal }: Props) {
   const fetchUserRule = async (role: string) => {
     const res = await fetch("/api/role?role=" + role);
     const data = await res.json();
-    console.log('data : ', data);
     update({ userType: data.userType });
     onControlModal("userRoleModal", false);
   };

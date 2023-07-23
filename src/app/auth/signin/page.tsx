@@ -27,7 +27,6 @@ const SigninPage = () => {
       callbackUrl: "/",
     });
 
-    console.log("result", session, result);
   };
   return (
     <div

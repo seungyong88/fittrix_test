@@ -1,3 +1,5 @@
+'use client';
+
 import { FullPost } from "@/types/posts";
 import React from "react";
 import Avatar from "./ui/Avatar";
@@ -13,6 +15,7 @@ import usePosts from "@/hooks/posts";
 import ModalPortal from "./ui/ModalPortal";
 import DefaultModal from "./DefaultModal";
 import PostDetail from "./PostDetail";
+import { useSession } from "next-auth/react";
 
 type Props = {
   post: FullPost;
@@ -34,11 +37,28 @@ const getIcon = (exercise: string) => {
 };
 
 function PostsListCard({ post }: Props) {
+  const {data: session} = useSession();
   const { postComment } = usePosts();
   const [ openModal, setOpenModal ] = React.useState(false);
 
   const handlePostComment = (comment: string) => {
     postComment(post, comment);
+  };
+
+  const handleDelete = async (id: string) => {
+    // const result = confirm("Are you sure you want to delete this post?");
+    const res = await fetch(`/api/delete/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    if (res.status === 200) {
+      alert("Post deleted successfully");
+      window.location.reload();
+    }
   };
 
   return (
@@ -53,6 +73,14 @@ function PostsListCard({ post }: Props) {
         <span className="text-xs text-neutral-500 uppercase my-2">
           {parseDate(post._updatedAt)}
         </span>
+        {session?.user.userType === "admin" && (
+          <button
+            className="text-xs text-white bg-red-900 p-2 uppercase"
+            onClick={() => handleDelete(post._id)}
+          >
+            Delete
+          </button>
+        )}
       </div>
       <div className="w-full" onClick={() => setOpenModal(true)}>
         <ScrollableImageSlider>

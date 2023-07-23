@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
     // },
     async jwt(props) {
       if (props.trigger === "update") {
-        console.log("sadsad :", props);
         return {
           ...props.token,
           userType: props.session.userType,

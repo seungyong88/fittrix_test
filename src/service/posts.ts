@@ -24,7 +24,6 @@ export async function getPostsOf(username: string, exercise: string) {
     )
     .then((posts) => {
       return posts.map((post: FullPost) => {
-        console.log("asdasdasd", post);
         return {
           ...post,
           author: {
@@ -88,8 +87,11 @@ export async function createPost(userId: string, text: string, exercise: string,
       })
 
   } catch (err) {
-    console.log(err);
   }
+}
+
+export async function deletePost(postId: string) {
+  return client.delete(postId);
 }
 
 

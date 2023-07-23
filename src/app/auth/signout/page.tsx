@@ -26,7 +26,6 @@ const SignoutPage = () => {
       callbackUrl: "/",
     });
 
-    console.log("re", result);
   };
   return (
     <div
