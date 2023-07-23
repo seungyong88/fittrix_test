@@ -9,15 +9,20 @@ export async function addUser(user: User) {
   return client.createIfNotExists({
     _id: user.username,
     _type: "user",
-    userType: "user",
+    userType: "",
     id: user.username, // interface authorize
     username: user.username,
     password: user.password,
   }).then((user: any) => {
-    return {
-      ...user,
-      url: urlFor(user.image)
-    };
+
+    if(user.image) {
+      return {
+        ...user,
+        url: urlFor(user.image)
+      };
+    }
+
+    return user;
   })
 }
 

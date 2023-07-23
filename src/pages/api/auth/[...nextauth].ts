@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
       // Send properties to the client, like an access_token from a provider.
       session.user = token;
       // session.user.username = token.username;
-      // session.user.userType = token.userType;
+      session.user.userType = token.userType;
       // session.user.avatar = token.image.asset._ref;
       return session;
     },
