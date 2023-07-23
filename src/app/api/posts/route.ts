@@ -5,15 +5,15 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
-//req: NextRequest
-export async function GET() {
+export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
+  const exercise = req.nextUrl.searchParams.get("exercise") || "all";
+
   if (!user) {
     return redirect("/auth/signin");
-    // return NextResponse.json({ error: "Not logged in" });
   }
 
-  return getPostsOf(user.username).then((data) => NextResponse.json(data));
+  return getPostsOf(user.username, exercise).then((data) => NextResponse.json(data));
 }

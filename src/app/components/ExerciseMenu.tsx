@@ -1,38 +1,38 @@
 import React from 'react'
 import SquatIcon from "../icons/SquatIcon";
 import BenchIcon from "../icons/BenchIcon";
-import RungeIcon from "../icons/RungeIcon";
-import RunningIcon from "../icons/RunningIcon";
+import LungeIcon from "../icons/LungeIcon";
 import ETCIcon from "../icons/ETCIcon";
+import RunIcon from '../icons/RunIcon';
 
-const workMenu = [
+const exerciseMenu = [
   {
-    href: "/?work=squat",
+    href: "/?exercise=squat",
     icon: <SquatIcon />,
   },
   {
-    href: "/?work=runge",
-    icon: <RungeIcon />,
+    href: "/?exercise=lunge",
+    icon: <LungeIcon />,
   },
   {
-    href: "/?work=bench",
+    href: "/?exercise=bench",
     icon: <BenchIcon />,
   },
   {
-    href: "/?work=running",
-    icon: <RunningIcon />,
+    href: "/?exercise=running",
+    icon: <RunIcon />,
   },
   {
-    href: "/?work=etc",
+    href: "/?exercise=etc",
     icon: <ETCIcon />,
   }
 ]
 
-function WorkMenu() {
+function ExerciseMenu() {
   return (
     <article className="flex items-center justify-center">
       <ul className="flex gap-4 mt-4">
-        {workMenu.map((item) => (
+        {exerciseMenu.map((item) => (
           <li key={item.href} className='border border-gray-200 rounded-full overflow-hidden '>
             <a href={item.href}>
               {item.icon}
@@ -44,4 +44,4 @@ function WorkMenu() {
   )
 }
 
-export default WorkMenu
+export default ExerciseMenu

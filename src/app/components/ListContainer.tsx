@@ -2,19 +2,23 @@
 
 import React from "react";
 import useSWR from "swr";
-import WorkMenu from "./WorkMenu";
+import ExerciseMenu from "./ExerciseMenu";
 import { FullPost } from "@/types/posts";
 import ListLoading from "./ui/ListLoading";
 import PostsListCard from "./PostsListCard";
+import { useSearchParams } from "next/navigation";
 
 function ListContainer() {
-  const { data: posts, isLoading, error } = useSWR<FullPost[]>("/api/posts");
+  const searchParams = useSearchParams();
+  const exercise = searchParams?.get('exercise') || 'all';
+
+  const { data: posts, isLoading, error } = useSWR<FullPost[]>(`/api/posts?exercise=${exercise}`);
 
   if (error) return <div>Failed to load</div>;
 
   return (
     <>
-      <WorkMenu />
+      <ExerciseMenu />
       {isLoading && <ListLoading />}
       {!posts && <div></div>}
       {posts && (

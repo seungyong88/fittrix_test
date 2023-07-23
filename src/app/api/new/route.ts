@@ -15,12 +15,11 @@ export async function POST(req: NextRequest) {
   const form = await req.formData();
   const text = form.get("text") as string;
   const images = form.getAll("images") as Blob[];
+  const exercise = form.get("exercise") as string;
   
-  console.log("@@@@@@@@@", text, images[0], images);
+  // if(!text && !images.length) {
+  //   return NextResponse.json({ error: "No content" });
+  // }
 
-  if(!text && !images.length) {
-    return NextResponse.json({ error: "No content" });
-  }
-
-  return createPost(user.username, text, images).then((data) => NextResponse.json(data));
+  return createPost(user.username, text, exercise, images).then((data) => NextResponse.json(data));
 }

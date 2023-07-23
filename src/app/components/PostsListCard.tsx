@@ -4,9 +4,29 @@ import Avatar from "./ui/Avatar";
 import { parseDate } from "@/utils/data";
 import RunIcon from "../icons/RunIcon";
 import ScrollableImageSlider from "./ui/ScrollableImageSlider";
+import BenchIcon from "../icons/BenchIcon";
+import SquatIcon from "../icons/SquatIcon";
+import ETCIcon from "../icons/ETCIcon";
+import LungeIcon from "../icons/LungeIcon";
+import CommentIcon from "../icons/CommentIcon";
 
 type Props = {
   post: FullPost;
+};
+
+const getIcon = (exercise: string) => {
+  switch (exercise) {
+    case "running":
+      return <RunIcon />;
+    case "bench":
+      return <BenchIcon />;
+    case "squat":
+      return <SquatIcon />;
+    case "lunge":
+      return <LungeIcon />;
+    default:
+      return <ETCIcon />;
+  }
 };
 
 function PostsListCard({ post }: Props) {
@@ -38,11 +58,14 @@ function PostsListCard({ post }: Props) {
           }
         </ScrollableImageSlider>
       </div>
-      <div>
-        <p className="text-gray-900 font-bold p-4">{post.comment}</p>
+       
+        {/* <p className="text-gray-900 font-bold p-4">{post.exercise}</p> */}
+      <div className="flex items-center pl-3">
+        {getIcon(post.exercise)}
+        <p className="text-gray-900 font-bold p-2">{post.comment}</p>
       </div>
       <form className="flex border-t border-neutral-300 p-3">
-        <RunIcon />
+        <CommentIcon />
         <input
           type="text"
           placeholder="Add a comment..."

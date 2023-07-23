@@ -7,6 +7,7 @@ import FilesIcon from "../icons/FilesIcon";
 import Avatar from "./ui/Avatar";
 import { useRouter } from "next/navigation";
 import { GridLoader } from "react-spinners";
+import ChoiceExerciseMenu from "./ChoiceExerciseMenu";
 
 type Props = {
   user: User;
@@ -18,6 +19,7 @@ function NewPost({ user }: Props) {
   const [imageArray, setImageArray] = React.useState<any>([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [exercise, setExercise] = React.useState("");
   const textRef = useRef<HTMLTextAreaElement>(null);
 
   const router = useRouter();
@@ -63,6 +65,11 @@ function NewPost({ user }: Props) {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    if(exercise === "") {
+      setError("Please select an exercise");
+      return;
+    }
+
     e.preventDefault();
     if (!imageArray.length) {
       return;
@@ -73,6 +80,7 @@ function NewPost({ user }: Props) {
     const formData = new FormData();
     imageArray.forEach((image: any) => formData.append('images', image));
     formData.append("text", (textRef.current?.value as string) || "");
+    formData.append("exercise", (exercise as string));
 
     fetch("/api/new", {
       method: "POST",
@@ -92,6 +100,10 @@ function NewPost({ user }: Props) {
         setLoading(false);
       });
   };
+
+  const typeClick = (type: string) => {
+    setExercise(type);
+  }
 
   return (
     <section className="w-full max-w-lg mx-auto flex flex-col justify-center items-center mt-6">
@@ -154,6 +166,7 @@ function NewPost({ user }: Props) {
           placeholder="Write a caption..."
           ref={textRef}
         ></textarea>
+        <ChoiceExerciseMenu onClick={typeClick} exercise={exercise} />
         <button
           className="w-full bg-sky-500 text-white py-2 mt-2 rounded-md"
           onClick={handleSubmit}

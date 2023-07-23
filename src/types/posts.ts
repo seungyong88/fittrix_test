@@ -1,5 +1,5 @@
 type Author = {
-  username: ReactNode;
+  username: string;
   image: any;
   url: string | null | undefined;
   _type: string;
@@ -17,6 +17,7 @@ type Image = {
 } 
 
 export type FullPost = {
+  exercise: string;
   _id: string;
   _type: string;
   _createdAt: string;
