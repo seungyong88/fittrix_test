@@ -10,6 +10,9 @@ import ETCIcon from "../icons/ETCIcon";
 import LungeIcon from "../icons/LungeIcon";
 import CommentForm from "./CommentForm";
 import usePosts from "@/hooks/posts";
+import ModalPortal from "./ui/ModalPortal";
+import DefaultModal from "./DefaultModal";
+import PostDetail from "./PostDetail";
 
 type Props = {
   post: FullPost;
@@ -32,6 +35,7 @@ const getIcon = (exercise: string) => {
 
 function PostsListCard({ post }: Props) {
   const { postComment } = usePosts();
+  const [ openModal, setOpenModal ] = React.useState(false);
 
   const handlePostComment = (comment: string) => {
     postComment(post, comment);
@@ -50,7 +54,7 @@ function PostsListCard({ post }: Props) {
           {parseDate(post._updatedAt)}
         </span>
       </div>
-      <div className="w-full">
+      <div className="w-full" onClick={() => setOpenModal(true)}>
         <ScrollableImageSlider>
           {
             post.images.map((image) => (
@@ -74,12 +78,19 @@ function PostsListCard({ post }: Props) {
           <p className="text-gray-900 font-bold p-2">{post.comment}</p>
         </div>
         {post?.commentsCount >= 1 && (
-          <button className="font-bold my-2 text-sky-500 text-xs">
+          <button className="font-bold my-2 text-sky-500 text-xs" onClick={() => setOpenModal(true)}>
             View all {post.commentsCount} comments
           </button>
         )}
       </div>
       <CommentForm onPostComment={handlePostComment} />
+      {openModal && (
+        <ModalPortal>
+          <DefaultModal onClose={() => setOpenModal(false)} openModal={openModal}>
+            <PostDetail post={post} />
+          </DefaultModal>
+        </ModalPortal>
+      )}
     </article>
   );
 }

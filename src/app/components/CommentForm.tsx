@@ -28,7 +28,10 @@ function CommentForm({ onPostComment } : Props ) {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
-      <button disabled={buttonDisabled} className={`${buttonDisabled ?'text-blue-200':'text-blue-500'} font-bold`}>Post</button>
+      <button 
+        disabled={buttonDisabled} 
+        className={`${buttonDisabled ?'text-blue-200':'text-blue-500'} font-bold`}
+      >Post</button>
     </form>
   );
 }

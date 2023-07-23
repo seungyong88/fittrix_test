@@ -8,6 +8,13 @@ export async function getPostsOf(username: string, exercise: string) {
       `*[_type == "post" ${exerciseQuery}] | order(_updatedAt desc){
       ...,
       "commentsCount": count(comments),
+      "comments": comments[]{
+        ...,
+        "author": author-> {
+          username,
+          image
+        }
+      },
       author-> {
         username,
         name,
@@ -17,13 +24,19 @@ export async function getPostsOf(username: string, exercise: string) {
     )
     .then((posts) => {
       return posts.map((post: FullPost) => {
-        console.log(posts);
+        console.log("asdasdasd", post);
         return {
           ...post,
           author: {
             ...post.author,
             url: urlFor(post.author.image),
           },
+          comments: post.comments?.map((comment) => {
+            return {
+              ...comment,
+              url : urlFor(comment.author.image)
+            }
+          }),
           images: post.images.map((image) => {
             return {
               ...image,

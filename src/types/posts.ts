@@ -17,10 +17,11 @@ type Image = {
 } 
 
 export type Comment = {
-  author: string;
+  author: any;
   comment: string;
   createdAt: string;
   updatedAt: string;
+  url: string | null | undefined;
 }
 
 export type FullPost = {
