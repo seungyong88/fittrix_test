@@ -1,6 +1,7 @@
 import { FullPost, Comment } from "@/types/posts";
 import useSWR from 'swr';
 import { useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 
 async function addComment(id: string, comment: string) {
   const response = await fetch(`/api/comments`, {
@@ -15,12 +16,15 @@ async function addComment(id: string, comment: string) {
 }
 
 export default function usePosts() {
+  const searchParams = useSearchParams();
+  const exercise = searchParams?.get('exercise') || 'all';
+
   const {
     data: posts,
     isLoading,
     error,
     mutate,
-  } = useSWR<FullPost[]>('/api/posts');
+  } = useSWR<FullPost[]>(`/api/posts?exercise=${exercise}`);
 
   const postComment = useCallback(
     (post: FullPost, comment: string) => {
