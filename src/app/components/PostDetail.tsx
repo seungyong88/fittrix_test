@@ -10,6 +10,15 @@ type Props = {
 
 function PostDetail({ post }: Props) {
   const { images, _createdAt, comments } = post;
+  const date = new Date(_createdAt);
+  const options: any = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  
+  const formattedDate: string = date.toLocaleString('ko-kr', options);
+  
   return (
     <div className="w-[1000px] h-auto bg-white relative flex justify-start items-start">
       <div className="w-[650px]">
@@ -25,7 +34,10 @@ function PostDetail({ post }: Props) {
         </ScrollableImageSlider>
       </div>
       <div className="w-[350px] h-full">
-        <div className="flex justify-between items-center p-4 border-b">
+        <div className="flex justify-center items-center mt-4">
+          {formattedDate}
+        </div>
+        <div className="flex justify-between items-center px-4 pt-2 pb-4 border-b">
           <div className="flex justify-start items-center gap-2">
           <Avatar image={post.author.url} />
           <span className="text-gray-900 font-bold">
