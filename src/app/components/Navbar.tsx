@@ -55,6 +55,7 @@ function Navbar() {
     update,
   }: { data: Session | null; status: string; update: Function } = useSession();
   const user = session?.user;
+  console.log("user", user)
   const dispatch = useAppDispatch();
   const { userRoleModal } = useAppSelector((state) => state.modal);
 
@@ -93,9 +94,9 @@ function Navbar() {
           pathName === "/auth/signin" ? "hidden" : "flex"
         } justify-between items-center px-6 h-[70px]`}
       >
-        <div>
+        <div className="w-[100px] h-[50px] min-w-[100px]">
           <Link href="/">
-            <Image src={Logo} alt="Logo" width={100} height={50} priority />
+            <img src='/images/logo.png' alt="Logo" width={100} height={50} />
           </Link>
         </div>
         <ul className="flex gap-4 items-center p-4">
@@ -114,8 +115,7 @@ function Navbar() {
           )}
           {session && (
             <li>
-              {/* {session?.user?.avatar} */}
-              <Avatar image={user?.avatar} userType={user?.userType} />
+              <Avatar image={user?.url} userType={user?.userType} />
             </li>
           )}
           {session && <ColorButton text="Sign out" onClick={() => signOut()} />}

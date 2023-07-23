@@ -7,6 +7,8 @@ declare module 'next-auth' {
       username: string;
       userType: string;
       avatar: string;
+      url: string;
+      image: object;
     } & DefaultSession['user'];
   }
 }

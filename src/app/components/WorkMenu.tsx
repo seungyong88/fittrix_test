@@ -33,7 +33,7 @@ function WorkMenu() {
     <article className="flex items-center justify-center">
       <ul className="flex gap-4 mt-4">
         {workMenu.map((item) => (
-          <li key={item.href}>
+          <li key={item.href} className='border border-gray-200 rounded-full overflow-hidden '>
             <a href={item.href}>
               {item.icon}
             </a>
