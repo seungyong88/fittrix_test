@@ -22,15 +22,15 @@ export default function RootLayout({ children }: Props) {
     <html lang="en" className={openSans.className}>
       <body className="w-full max-w-screen-md bg-red-100 overflow-auto mx-auto">
         <AuthContext>
-        <SWRConfigContext>
-          <ReduxProvider>
-            <header className="sticky top-0 bg-red-100 z-10 border-b">
-              <Navbar />
-            </header>
+          <SWRConfigContext>
+            <ReduxProvider>
+              <header className="sticky top-0 bg-red-100 z-10 border-b">
+                <Navbar />
+              </header>
               <main>{children}</main>
-            <div id="portal"></div>
-          </ReduxProvider>
-            </SWRConfigContext>
+              <div id="portal"></div>
+            </ReduxProvider>
+          </SWRConfigContext>
         </AuthContext>
       </body>
     </html>
